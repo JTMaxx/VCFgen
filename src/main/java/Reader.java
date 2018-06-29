@@ -10,8 +10,7 @@ public class Reader {
         int rowsNumber;
         List<String> contactsLines = new ArrayList();
         Scanner scanner = new Scanner(System.in);
-        String path = null;
-        String record = null;
+        String record;
 
         System.out.println("How many contacts you want to put?");
         rowsNumber = scanner.nextInt() + 1; // + 1 to poprawka na wyswietlanie o jeden wiersz za malo
@@ -45,12 +44,6 @@ public class Reader {
             actualIndex++;
         }
 
-        //todo: w przypadku gdy szukamy ostatniej kolumny, na koncu nie ma \t, jest koniec, outOfBoundException
-        //todo: mozna zrobic try .. catch
-        //todo: albo:
-//        if (actualFieldNumber == liczbakolumn) {
-//        return fieldContent = contactsToParse.get(contactNumber).substring(startIndex);
-//        }
         try {
             while (!"\t".equals(contactsToParse.get(contactNumber)
                     .substring(startIndex + fieldContentLength, startIndex + fieldContentLength + 1))) {
