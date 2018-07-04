@@ -1,4 +1,3 @@
-import java.util.List;
 
 public class Main {
     public final static int COLUMNS_NUMBER = 4;
@@ -7,8 +6,8 @@ public class Main {
         //Reader reader = new Reader();
 
         Header header = new Header();
-
-        header.xx();
+        for (String str: header.getHeader())
+            System.out.println(str);
 
     }
 }

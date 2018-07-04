@@ -18,11 +18,40 @@ public class Reader {
 
         for (int i = 0; i < rowsNumber; i++) {
             record = scanner.nextLine();
+            //scanner.close();
             contactsLines.add(record);
         }
-        scanner.close();
         return contactsLines;
     }
+
+    public int getNumberOfColumns(List<String> contactsToParse) {
+        int currentIndex = 0;
+        int fieldNumber = 0;
+        while (true) {
+
+            try {
+                contactsToParse.get(0).substring(currentIndex, currentIndex+1);
+            }
+
+            catch (StringIndexOutOfBoundsException e) {
+                break;
+            }
+
+//            catch (IndexOutOfBoundsException e) {
+//                //hasNextChar = false;
+//                break;
+//            }
+
+            if ("\t".equals(contactsToParse.get(0).substring(currentIndex, currentIndex+1))) {
+                fieldNumber++;
+            }
+            currentIndex++;
+        }
+
+
+      return fieldNumber + 1; //+1 because there is one more columns than '\t'
+    }
+
 
 
 
@@ -54,8 +83,7 @@ public class Reader {
             return contactsToParse.get(contactNumber).substring(startIndex);
         }
         endIndex = startIndex + fieldContentLength;
-//        System.out.println("startIndex = " + startIndex);
-//        System.out.println("endIndex = " + endIndex);
+        //System.out.println("liczba kolumn: " + actualFieldNumber);
         return contactsToParse.get(contactNumber).substring(startIndex, endIndex);
     }
 
