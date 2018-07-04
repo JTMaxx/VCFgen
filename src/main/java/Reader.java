@@ -3,34 +3,38 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Reader {
+    int rowsNumber;
+
 
     // Read contacts from Scanner and save it to List<String> where each position in this list similar to:
     // johny	monday	39029331	january@gmail.com
     public List<String> readContacts() {
-        int rowsNumber;
         List<String> contactsLines = new ArrayList();
         Scanner scanner = new Scanner(System.in);
-        String record;
+        String row;
 
         System.out.println("How many contacts you want to put?");
         rowsNumber = scanner.nextInt() + 1; // + 1 to poprawka na wyswietlanie o jeden wiersz za malo
         System.out.println("Paste data from spreadsheet.");
 
         for (int i = 0; i < rowsNumber; i++) {
-            record = scanner.nextLine();
+            row = scanner.nextLine();
             //scanner.close();
-            contactsLines.add(record);
+            contactsLines.add(row);
         }
         return contactsLines;
     }
 
-    public int getNumberOfColumns(List<String> contactsToParse) {
+    public int getNumberOfColumns(List<String> contacts) {
         int currentIndex = 0;
         int fieldNumber = 0;
         while (true) {
 
             try {
-                contactsToParse.get(0).substring(currentIndex, currentIndex+1);
+                contacts.get(1).substring(currentIndex, currentIndex+1); // 1 bo nie czyta 0 wiersza
+                if ("\t".equals(contacts.get(1).substring(currentIndex, currentIndex+1))) { // 1 bo nie czyta 0 wiersza
+                    fieldNumber++;
+                }
             }
 
             catch (StringIndexOutOfBoundsException e) {
@@ -42,9 +46,7 @@ public class Reader {
 //                break;
 //            }
 
-            if ("\t".equals(contactsToParse.get(0).substring(currentIndex, currentIndex+1))) {
-                fieldNumber++;
-            }
+
             currentIndex++;
         }
 

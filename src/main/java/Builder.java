@@ -1,9 +1,54 @@
 import java.io.PrintWriter;
+import java.util.List;
 
 public class Builder {
 
 
-    Reader reader1 = new Reader();
+    public void buildVCF() {
+        Header header = new Header();
+        List<String> headerList;
+        headerList = header.getHeader();
+        Reader reader = new Reader();
+
+        try {
+           PrintWriter writer = new PrintWriter("export.csv", "UTF-8");
+           int i=0;
+           for(String str: headerList) {
+               writer.print(str);
+               if (i == reader.getNumberOfColumns(header.Contacts) - 1) { //'removing' unnecessary comma
+                   break;
+               }
+               writer.print(",");
+               i++;
+           }
+           writer.println();
+
+           for (int rowNumber = 1; rowNumber < header.Contacts.size(); rowNumber++) {
+               i=0;
+               for (int fieldNumber = 0; fieldNumber < reader.getNumberOfColumns(header.Contacts); fieldNumber++) {
+                   writer.print(reader.getFieldContent(header.Contacts, fieldNumber + 1, rowNumber)); //added 1
+                   if (i == reader.getNumberOfColumns(header.Contacts) - 1) { //'removing' unnecessary comma
+                       break;
+                   }
+                   writer.print(",");
+                   i++;
+               }
+               writer.println();
+           }
+
+
+           writer.close();
+           System.out.println("Contacts exported.");
+           }
+
+       catch (java.io.UnsupportedEncodingException e) {
+           System.err.println("Unsupported encoding.");
+       }
+       catch (java.io.FileNotFoundException e) {
+           System.err.println("File not exist!");
+       }
+
+    }
 
 //    public void buildVCF() {
 //       // Reader reader1 = new Reader(reader1.getDistinctDataTypes(reader1.readContacts().get(1)));
