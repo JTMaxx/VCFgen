@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Header {
-    Reader reader = new Reader();
-    int columnsNumber;
-    public List<String> Contacts = reader.readContacts();
+    private Reader reader = new Reader();
+    private int columnsNumber;
+    List<String> Contacts = reader.readContacts();
 
-    public List<String> getFieldNamesFromTxt() {
+
+    private List<String> getFieldNamesFromTxt() {
         List<String> fieldNames = new ArrayList<String>();
         File file = new File("field-names.txt");
-
 
         //take names of fields from field-names.txt
         try {
@@ -28,52 +28,42 @@ public class Header {
         return fieldNames;
     }
 
-        public int getFieldTypeFromUser (int currentFieldNumber) {
-
-
+        private int getFieldTypeFromUser (int currentFieldNumber) {
 
                 List <String> fieldNames = getFieldNamesFromTxt();
                 int codeFieldNumber;
-                //int currentFieldNumber;
 
+                System.out.println("\nexemplary answers:");
 
-                //for (currentFieldNumber = 0; currentFieldNumber < reader.getNumberOfColumns(Contacts); currentFieldNumber++) {
+                //this loop displays exemplary answers so that user find out which type of field is it.
+                for (int i = 0; i < 3; i++) { // i < 3 because there are 3 exemplary answers
+                    System.out.println(reader.getFieldContent(Contacts, currentFieldNumber, i));
+                }
+                System.out.println();
 
-                    System.out.println("Put type of this field.");
-                    System.out.println("\nexemplary answers:");
+                int i = 0;
+                for (String name: fieldNames) {
+                    System.out.println(i + " - " + name);
+                    i++;
+                }
+                System.out.println("Which field is that?");
 
-                    //this loop displays exemplary answers so that user find out which type of field is it.
-                    for (int i = 1; i < 4; i++) { // i=1, a nie 0, bo to poprawka na 1 niewyswietlajacy sie wiersz
-                        System.out.println(reader.getFieldContent(Contacts, currentFieldNumber, i));
-                    }
-
-                    System.out.println();
-
-                    int i = 0;
-                    for (String str : fieldNames) {
-                        System.out.println(i + " - " + str);
-                        i++;
-                    }
-                    System.out.println("Which field is that?");
-
-                    Scanner scanner = new Scanner(System.in);
-                    System.out.println("Put number of field type: ");
-                    codeFieldNumber = scanner.nextInt();
-                    return codeFieldNumber;
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Put number of field type: ");
+                codeFieldNumber = scanner.nextInt();
+                return codeFieldNumber;
 
             }
 
-    public List<String> getHeader() {
-        List<String> header = new ArrayList<String>();
+        public List<String> getHeader() {
+            List<String> header = new ArrayList<String>();
+            columnsNumber = reader.getNumberOfColumns(Contacts);
 
-        columnsNumber = reader.getNumberOfColumns(Contacts);
-
-        for (int i = 0; i<columnsNumber; i++) {
-            header.add(getFieldNamesFromTxt().get(getFieldTypeFromUser(i + 1)));
-        }
-        System.out.println("\nColumn types accepted.");
-
-        return header;
+            for (int i = 0; i<columnsNumber; i++) {
+                header.add(getFieldNamesFromTxt().get(getFieldTypeFromUser(i + 1)));
+            }
+            System.out.println("\nColumn types accepted.");
+            return header;
     }
 
 
@@ -82,4 +72,3 @@ public class Header {
 }
 
 
-//todo: do scanner.close() after using all of scans

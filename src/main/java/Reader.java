@@ -1,3 +1,4 @@
+//todo: add line with scanner.close() after using all of scans
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,21 +7,28 @@ public class Reader {
     int rowsNumber;
 
 
-    // Read contacts from Scanner and save it to List<String> where each position in this list similar to:
-    // johny	monday	39029331	january@gmail.com
+    // Read contacts from Scanner and save it to List<String> in which each row is similar to:
+    // John	Smith	39029331	january@gmail.com
+    // with \t between
     public List<String> readContacts() {
         List<String> contactsLines = new ArrayList();
         Scanner scanner = new Scanner(System.in);
-        String row;
+        System.out.println("Paste data from spreadsheet and press enter twice.");
 
-        System.out.println("How many contacts you want to put?");
-        rowsNumber = scanner.nextInt() + 1; // + 1 to poprawka na wyswietlanie o jeden wiersz za malo
-        System.out.println("Paste data from spreadsheet.");
+        String scan;
+        while (true) {
+            scan = scanner.nextLine();
+            if (!"".equals(scan)) {
+                contactsLines.add(scan);
+            }
+            else {
+                break;
+            }
 
-        for (int i = 0; i < rowsNumber; i++) {
-            row = scanner.nextLine();
-            //scanner.close();
-            contactsLines.add(row);
+        }
+
+        for (String test: contactsLines) {
+            System.out.println("test: " + test);
         }
         return contactsLines;
     }
@@ -31,8 +39,8 @@ public class Reader {
         while (true) {
 
             try {
-                contacts.get(1).substring(currentIndex, currentIndex+1); // 1 bo nie czyta 0 wiersza
-                if ("\t".equals(contacts.get(1).substring(currentIndex, currentIndex+1))) { // 1 bo nie czyta 0 wiersza
+                contacts.get(0).substring(currentIndex, currentIndex+1);
+                if ("\t".equals(contacts.get(0).substring(currentIndex, currentIndex+1))) {
                     fieldNumber++;
                 }
             }
@@ -40,21 +48,10 @@ public class Reader {
             catch (StringIndexOutOfBoundsException e) {
                 break;
             }
-
-//            catch (IndexOutOfBoundsException e) {
-//                //hasNextChar = false;
-//                break;
-//            }
-
-
             currentIndex++;
         }
-
-
       return fieldNumber + 1; //+1 because there is one more columns than '\t'
     }
-
-
 
 
     //bases on number of column and returns content of field
@@ -65,7 +62,6 @@ public class Reader {
         int fieldContentLength = 0;
         int startIndex = 0;
         int endIndex;
-        //List<String> contactsToParse = readContacts();
 
         while (actualFieldNumber < seekingFieldNumber - 1) { //-1 because seekingFieldNumber begins from 1
             if ("\t".equals(contactsToParse.get(contactNumber).substring(actualIndex, actualIndex+1))) {
@@ -85,12 +81,8 @@ public class Reader {
             return contactsToParse.get(contactNumber).substring(startIndex);
         }
         endIndex = startIndex + fieldContentLength;
-        //System.out.println("liczba kolumn: " + actualFieldNumber);
         return contactsToParse.get(contactNumber).substring(startIndex, endIndex);
     }
-
-
-
 }
 
 
