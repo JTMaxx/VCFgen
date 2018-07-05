@@ -1,0 +1,9 @@
+Name
+Given Name
+Family Name
+Notes
+Group Membership
+E-mail 1 - Value
+Phone 1 - Value
+E-mail 2 - Value
+Phone 2 - Value

@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Reader {
-    int rowsNumber;
-
 
     // Read contacts from Scanner and save it to List<String> in which each row is similar to:
     // John	Smith	39029331	january@gmail.com
@@ -27,9 +25,6 @@ public class Reader {
 
         }
 
-        for (String test: contactsLines) {
-            System.out.println("test: " + test);
-        }
         return contactsLines;
     }
 

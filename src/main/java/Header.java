@@ -12,7 +12,8 @@ public class Header {
 
     private List<String> getFieldNamesFromTxt() {
         List<String> fieldNames = new ArrayList<String>();
-        File file = new File("field-names.txt");
+        File file = new File("field-names-min.txt"); //field-names-min.txt - minimum list
+                                                        //field-names-ext.txt - extended list
 
         //take names of fields from field-names.txt
         try {
@@ -32,24 +33,24 @@ public class Header {
 
                 List <String> fieldNames = getFieldNamesFromTxt();
                 int codeFieldNumber;
-
-                System.out.println("\nexemplary answers:");
+                System.out.println("Which type of field is that?");
+                System.out.println("\nexamples:");
 
                 //this loop displays exemplary answers so that user find out which type of field is it.
                 for (int i = 0; i < 3; i++) { // i < 3 because there are 3 exemplary answers
                     System.out.println(reader.getFieldContent(Contacts, currentFieldNumber, i));
                 }
                 System.out.println();
+                System.out.println("Possible field types:");
 
-                int i = 0;
+            int i = 0;
                 for (String name: fieldNames) {
                     System.out.println(i + " - " + name);
                     i++;
                 }
-                System.out.println("Which field is that?");
 
                 Scanner scanner = new Scanner(System.in);
-                System.out.println("Put number of field type: ");
+                System.out.println("Put number of field type:\n");
                 codeFieldNumber = scanner.nextInt();
                 return codeFieldNumber;
 
