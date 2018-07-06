@@ -15,7 +15,7 @@ public class Header {
         File file = new File("field-names-min.txt"); //field-names-min.txt - minimum list
                                                         //field-names-ext.txt - extended list
 
-        //take names of fields from field-names.txt
+        //take names of fields from field-names-xxx.txt
         try {
             Scanner scanner = new Scanner(file);
 
@@ -50,7 +50,7 @@ public class Header {
                 }
 
                 Scanner scanner = new Scanner(System.in);
-                System.out.println("Put number of field type:\n");
+                System.out.println("\nPut number of field type:");
                 codeFieldNumber = scanner.nextInt();
                 return codeFieldNumber;
 
