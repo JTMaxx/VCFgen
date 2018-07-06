@@ -1,14 +1,14 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Header {
     private Reader reader = new Reader();
     private int columnsNumber;
-    List<String> Contacts = reader.readContacts();
-
+    private List<String> contacts = Collections.unmodifiableList(reader.readContacts());
 
     private List<String> getFieldNamesFromTxt() {
         List<String> fieldNames = new ArrayList<String>();
@@ -38,12 +38,12 @@ public class Header {
 
                 //this loop displays exemplary answers so that user find out which type of field is it.
                 for (int i = 0; i < 3; i++) { // i < 3 because there are 3 exemplary answers
-                    System.out.println(reader.getFieldContent(Contacts, currentFieldNumber, i));
+                    System.out.println(reader.getFieldContent(contacts, currentFieldNumber, i));
                 }
                 System.out.println();
                 System.out.println("Possible field types:");
 
-            int i = 0;
+                int i = 0;
                 for (String name: fieldNames) {
                     System.out.println(i + " - " + name);
                     i++;
@@ -58,7 +58,7 @@ public class Header {
 
         public List<String> getHeader() {
             List<String> header = new ArrayList<String>();
-            columnsNumber = reader.getNumberOfColumns(Contacts);
+            columnsNumber = reader.getNumberOfColumns(contacts);
 
             for (int i = 0; i<columnsNumber; i++) {
                 header.add(getFieldNamesFromTxt().get(getFieldTypeFromUser(i + 1)));
@@ -67,9 +67,9 @@ public class Header {
             return header;
     }
 
-
-
-
+    public List<String> getContacts() {
+        return contacts;
+    }
 }
 
 
