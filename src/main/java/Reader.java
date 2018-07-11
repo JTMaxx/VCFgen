@@ -50,17 +50,17 @@ public class Reader {
 
 
     //bases on number of column and returns content of field
-    String getFieldContent(List<String> contactsToParse, int seekingFieldNumber, int contactNumber) {
+    String getFieldContent(List<String> contactsToParse, int FieldNumber, int contactNumber) {
 
         int actualIndex = 0;
-        int actualFieldNumber = 0;
+        int currentFieldNumber = 0;
         int fieldContentLength = 0;
         int startIndex = 0;
         int endIndex;
 
-        while (actualFieldNumber < seekingFieldNumber - 1) { //-1 because seekingFieldNumber begins from 1
+        while (currentFieldNumber < FieldNumber - 1) { //-1 because FieldNumber begins from 1
             if ("\t".equals(contactsToParse.get(contactNumber).substring(actualIndex, actualIndex+1))) {
-                actualFieldNumber++;
+                currentFieldNumber++;
                 startIndex = actualIndex + 1; // +1 because \t doesn't belong to fieldContent
             }
             actualIndex++;

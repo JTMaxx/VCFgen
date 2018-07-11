@@ -12,28 +12,28 @@ public class Builder {
 
         try {
            PrintWriter writer = new PrintWriter("export.csv", "UTF-8");
-           int i=0;
 
+           int columnIndex=0;
            for(String str: headerList) {
                writer.print(str);
-               if (i == reader.getNumberOfColumns(header.getContacts()) - 1) { //'removing' unnecessary comma
+               if (columnIndex == reader.getNumberOfColumns(header.getContacts()) - 1) { // unnecessary comma at the end prevention
                    break;
                }
                writer.print(",");
-               i++;
+               columnIndex++;
            }
            writer.println();
 
            for (int rowNumber = 0; rowNumber < header.getContacts().size(); rowNumber++) {
-               i=0;
+               columnIndex=0;
                for (int fieldNumber = 0; fieldNumber < reader.getNumberOfColumns(header.getContacts()); fieldNumber++) {
                    writer.print(reader.getFieldContent(header.getContacts(), fieldNumber + 1, rowNumber)); //+1 because seekingFieldNumber starts from 1
                                                                                                                         // whereas fieldNumber starts from 0
-                   if (i == reader.getNumberOfColumns(header.getContacts()) - 1) { //'removing' unnecessary comma
+                   if (columnIndex == reader.getNumberOfColumns(header.getContacts()) - 1) { // unnecessary comma at the end prevention
                        break;
                    }
                    writer.print(",");
-                   i++;
+                   columnIndex++;
                }
                writer.println();
            }
